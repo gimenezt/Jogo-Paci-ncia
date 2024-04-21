@@ -1,9 +1,8 @@
 import random
 from util import cria_grafico
-
 from main import main
 
-def algoritmo_elementar(seq, comparing = 0):
+def algoritmo_elementar(seq:list, comparing:int = 0) -> list:
     pilhas = []
 
     for valor in seq:
@@ -33,7 +32,7 @@ def algoritmo_elementar(seq, comparing = 0):
     return pilhas
 
 
-def algoritmo_aleatorio(seq, comparing = 0):
+def algoritmo_aleatorio(seq:list, comparing:int = 0) -> list:
     pilhas = []
 
     for valor in seq:
@@ -65,7 +64,7 @@ def algoritmo_aleatorio(seq, comparing = 0):
     return pilhas
 
 
-def comparar_algoritmos(tamanho_minimo, tamanho_maximo, delta, num_amostras):
+def comparar_algoritmos(tamanho_minimo:int, tamanho_maximo:int, delta:int, num_amostras:int):
     print("Gerando gráfico...")
     tamanhos = list(range(tamanho_minimo, tamanho_maximo + 1, delta))
     medias_pilhas_elementar = []

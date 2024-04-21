@@ -1,19 +1,19 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def insere_seq():
+def insere_seq() -> list:
     len_seq = int(input("Insira o tamanho da sequência: "))
     seq = input("Insira a sequência de inteiros: ").split()
     seq = verifica_len_sequencia(len_seq, seq)    # verifica se len da seqeunia é igual ao numero inserido anteriormente
     
     return seq
 
-def verifica_len_sequencia(n, sequencia):
+def verifica_len_sequencia(n:int, sequencia:list) -> list:
     while len(sequencia) != n:
         sequencia = input(f"[ERRO] Insira uma sequência de {n} inteiros: ")
     return sequencia
 
-def cria_grafico(X, Y1, Y2):
+def cria_grafico(X:int, Y1:int, Y2:int):
     
     df = pd.DataFrame({
         'Tamanho da Permutação': X,
