@@ -1,7 +1,9 @@
 import random
+from util import cria_grafico
+
 from main import main
 
-def algoritmo_elementar(seq):
+def algoritmo_elementar(seq, comparing = 0):
     pilhas = []
 
     for valor in seq:
@@ -21,15 +23,17 @@ def algoritmo_elementar(seq):
     tamanho_maximo_pilha = max(len(pilha) for pilha in pilhas)
     tamanho_minimo_pilha = min(len(pilha) for pilha in pilhas)
 
-    print("\nResultado da simulação: ")
-    print("- Total de pilhas:", num_pilhas)
-    print("- Tamanho máximo:", tamanho_maximo_pilha)
-    print("- Tamanho mínimo:", tamanho_minimo_pilha)
+    if comparing == 0:  # ondião para não ficar printando os resultados se estivermos apenas comparando
+        print("\nResultado da simulação: ")
+        print("- Total de pilhas:", num_pilhas)
+        print("- Tamanho máximo:", tamanho_maximo_pilha)
+        print("- Tamanho mínimo:", tamanho_minimo_pilha)
+        main()
+        
+    return pilhas
 
-    main()
 
-
-def algoritmo_aleatorio(seq):
+def algoritmo_aleatorio(seq, comparing = 0):
     pilhas = []
 
     for valor in seq:
@@ -51,12 +55,38 @@ def algoritmo_aleatorio(seq):
     tamanho_maximo_pilha = max(len(pilha) for pilha in pilhas)
     tamanho_minimo_pilha = min(len(pilha) for pilha in pilhas)
 
-    print("\nResultado da simulação: ")
-    print("- Total de pilhas:", num_pilhas)
-    print("- Tamanho máximo:", tamanho_maximo_pilha)
-    print("- Tamanho mínimo:", tamanho_minimo_pilha)
+    if comparing == 0:  # ondião para não ficar printando os resultados se estivermos apenas comparando
+        print("\nResultado da simulação: ")
+        print("- Total de pilhas:", num_pilhas)
+        print("- Tamanho máximo:", tamanho_maximo_pilha)
+        print("- Tamanho mínimo:", tamanho_minimo_pilha)
+        main()
+    
+    return pilhas
 
+
+def comparar_algoritmos(tamanho_minimo, tamanho_maximo, delta, num_amostras):
+    print("Gerando gráfico...")
+    tamanhos = list(range(tamanho_minimo, tamanho_maximo + 1, delta))
+    medias_pilhas_elementar = []
+    medias_pilhas_aleatorio = []
+
+    for tamanho in tamanhos:
+        num_pilhas_elementar = 0
+        num_pilhas_aleatorio = 0
+
+        for _ in range(num_amostras):
+            permutacao = list(range(1, tamanho + 1))
+            random.shuffle(permutacao)
+            
+            pilhas_elementar = algoritmo_elementar(permutacao, comparing=1)
+            num_pilhas_elementar += len(pilhas_elementar)
+            
+            pilhas_aleatorio = algoritmo_aleatorio(permutacao, comparing=1)
+            num_pilhas_aleatorio += len(pilhas_aleatorio)
+
+        medias_pilhas_elementar.append(num_pilhas_elementar / num_amostras)
+        medias_pilhas_aleatorio.append(num_pilhas_aleatorio / num_amostras)
+
+    cria_grafico(X=tamanhos, Y1=medias_pilhas_elementar, Y2=medias_pilhas_aleatorio)
     main()
-
-def compara():
-    pass
